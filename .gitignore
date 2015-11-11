@@ -1,5 +1,5 @@
 # Package Files #
-#*.war
+.war
 *.ear
 .DS_Store
 auto
