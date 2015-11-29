@@ -32,3 +32,8 @@
   1. [http://thediscoblog.com/blog/2013/11/18/provisioning-ubuntu-with-java-in-3-steps/](http://thediscoblog.com/blog/2013/11/18/provisioning-ubuntu-with-java-in-3-steps/)
   2. [https://docs.vagrantup.com/v2/getting-started/provisioning.html](https://docs.vagrantup.com/v2/getting-started/provisioning.html)
   3. [https://github.com/aglover/ubuntu-equip/raw/master/equip_java8.sh](https://github.com/aglover/ubuntu-equip/raw/master/equip_java8.sh)
+
+## Note
+  1. When running analysis on a newly created project, make sure that the project does not already exists in the project list.
+  2. The machine should be connected to the internet for the tool to run.
+  3. The tool does not have executable binaries, and hence none would be found on the desktop.
