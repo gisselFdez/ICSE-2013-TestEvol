@@ -85,10 +85,6 @@ echo -e "[Desktop Entry]\nEncoding=UTF-8\nName=Connect via LocalHost\nType=Link\
 sudo touch /home/vagrant/Desktop/TestEvolDemo.desktop
 echo -e "[Desktop Entry]\nEncoding=UTF-8\nName=Link to TestEvolDemo\nType=Link\nURL=https://www.youtube.com/watch?v=AT-cfe8j668\nIcon=text-html" | sudo tee /home/vagrant/Desktop/TestEvolDemo.desktop
 
-# Launching tomcat server at startup
-
-sudo xdg-open http://localhost:8080
-
 # Removing the extra icons from the side bar
 
 gsettings set com.canonical.Unity.Launcher favorites "['application://firefox.desktop']"
@@ -96,6 +92,13 @@ gsettings set com.canonical.Unity.Launcher favorites "['application://firefox.de
 # Starting tomcat server
 
 sudo /usr/apache-tomcat-7.0.65/bin/startup.sh
+
+# Launching tomcat server at startup
+
+sudo mkdir /etc/xdg/autostart
+sudo touch /etc/xdg/autostart/LocalHost.desktop
+echo -e "[Desktop Entry]\nType=Application\nTerminal=false\nName=LocalHost\nIcon=Desktop/eclipse/icon.xpm\nExec=/home/vagrant/Desktop/LocalHost.desktop\nX-GNOME-Autostart-enabled=true" | sudo tee /etc/xdg/autostart/LocalHost.desktop
+sudo chmod +x /etc/xdg/autostart/LocalHost.desktop
 
 
 
