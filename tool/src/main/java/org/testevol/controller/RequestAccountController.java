@@ -29,8 +29,9 @@ public class RequestAccountController {
 	public 	String requestAccount(@RequestParam("username") String username) {
 		if(username == null || username.trim().length() == 0){
 			return "redirect:/login";
+			//username = "icse";
 		}
-
+		
 		request("Testevol Access Request", username);
 		
 		return "redirect:/login?accessRequested=true";
@@ -40,6 +41,7 @@ public class RequestAccountController {
 	public 	String requestTool(@RequestParam("username") String username) {
 		if(username == null || username.trim().length() == 0){
 			return "redirect:/login";
+			//username = "gisselita04@hotmail.com";
 		}
 
 		request("Testevol Tool Request", username);
@@ -52,7 +54,7 @@ public class RequestAccountController {
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.port", "465");
  
 		Session session = Session.getInstance(props,
 		  new javax.mail.Authenticator() {
@@ -66,7 +68,7 @@ public class RequestAccountController {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(email));
 			message.setRecipients(Message.RecipientType.TO,
-				InternetAddress.parse("leandro.shp@gmail.com"));
+				InternetAddress.parse("gisselita04@gmail.com"));
 			message.setSubject(messageBody);
 			message.setText(username+" is requesting access to Testevol.");
  

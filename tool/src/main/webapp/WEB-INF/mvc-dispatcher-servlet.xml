@@ -54,7 +54,7 @@
 			<security:password-encoder hash="sha" />
 			<security:user-service>
                               <security:user name="icse"
-                                        password="5ea31ff90aab047dcc26272004960e9de8a1b704" authorities="ROLE_USER" />
+                                        password="a94a8fe5ccb19ba61c4c0873d391e987982fbbd3" authorities="ROLE_USER" />
 				<security:user name="alex"
 					password="5ea31ff90aab047dcc26272004960e9de8a1b704" authorities="ROLE_USER" />
                               <security:user name="leandro"

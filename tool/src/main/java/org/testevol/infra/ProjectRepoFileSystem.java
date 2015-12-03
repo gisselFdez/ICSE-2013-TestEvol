@@ -63,7 +63,7 @@ public class ProjectRepoFileSystem implements ProjectRepository {
 		VersionControlSystem versionControlSystem = project
 				.getVersionControlSystem();
 		File projectDir = new File(getProjectsDir(user), project.getName());
-		projectDir.mkdirs();		
+		projectDir.mkdirs();
 		try {
 			versionControlSystem.checkout(projectDir, project.getBranchesToCheckout());
 		} catch (Exception e) {

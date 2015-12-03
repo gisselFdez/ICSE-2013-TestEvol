@@ -20,6 +20,5 @@ public class LoginController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String login() {
 		return "redirect:/projects/list";
-	}
-	
+	}	
 }

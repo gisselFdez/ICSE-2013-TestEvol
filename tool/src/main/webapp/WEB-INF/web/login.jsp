@@ -37,7 +37,7 @@
 							Your request has been accepted. You will soon receive an email with a link to the tool.
 						</div>
 					<form class="form-horizontal"
-						action="<c:url value="j_spring_security_check"/>" method="post">
+						 action="<c:url value="j_spring_security_check"/>" method="post">
 						<fieldset>
 							<div class="input-prepend" title="Username" data-rel="tooltip">
 								<span class="add-on"><i class="icon-user"></i></span><input

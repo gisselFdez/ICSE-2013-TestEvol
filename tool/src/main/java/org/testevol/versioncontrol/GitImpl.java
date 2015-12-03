@@ -69,7 +69,7 @@ public class GitImpl extends VersionControlSystem {
 	@Override
 	public void checkout(File destinationDir, List<String> branchesToClone)
 			throws Exception {
-		File dir = Utils.getTempDir();
+		//File dir = Utils.getTempDir();
 		try {
 			int branchIndex=0;
 			CredentialsProvider credentialsProvider = null;
@@ -79,7 +79,8 @@ public class GitImpl extends VersionControlSystem {
 			}
 
 			for(String branch:branchesToClone){
-				deleteDirContents(dir);
+				File dir = Utils.getTempDir();
+				//deleteDirContents(dir);
 				
 				CloneCommand cloneCommand = Git.cloneRepository().setURI(url).setDirectory(dir).setNoCheckout(true);
 				
@@ -106,9 +107,9 @@ public class GitImpl extends VersionControlSystem {
 			}
 		} 
 		finally {
-			if (dir != null) {
+			/*if (dir != null) {
 				FileUtils.deleteDirectory(dir);
-			}
+			}*/
 		}
 	}
 
