@@ -24,11 +24,11 @@ public class TestevolMavenCli {
 
 	public static String execMavenProcess(String[] goals, File workingDir) throws Exception {
 		List<String> args = new ArrayList<String>();
-		args.add("mvn");
+		args.add("mvn.cmd");
 		for (String goal : goals) {
 			args.add(goal);
 		}
-
+		
 		ProcessBuilder processBuilder = new ProcessBuilder(args).directory(workingDir);
 		processBuilder.redirectErrorStream();
 		Process process = processBuilder.start();

@@ -440,7 +440,9 @@ public class Version {
 		if (buildDir.exists()) {
 			FileUtils.deleteDirectory(buildDir);
 		}
-		buildDir.mkdirs();
+		if(buildDir.mkdirs()) {
+		  System.out.println("The directory named " + buildDir.getPath() + " was created.");
+		}
 
 		getBinTmpDir().mkdirs();
 		getBinDir().mkdirs();
