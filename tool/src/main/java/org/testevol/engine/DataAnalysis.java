@@ -56,6 +56,7 @@ public class DataAnalysis {
 
 	public void start() throws Exception {
 
+	  System.out.println("Start the data analysis.");
 		long init = System.currentTimeMillis();
 		TestEvolLog log = null;
 		boolean setUpSuccessFully = false;
@@ -68,12 +69,15 @@ public class DataAnalysis {
 				FileUtils.copyDirectory(version.getDirectory(), versionCopy);
 				version.setDirectory(versionCopy);
 				log.log("Setting up version " + version.getName());
+				System.out.println("Setting up the version " + version.getName());
 				if(!version.setUp(new File(testevolConfigRoot))){
+				  System.out.println("[ERROR] Error while setting up the version " + version.getName());
 					log.logError("Error while setting up version "+version.getName());
 					throw new RuntimeException();
 				}
 			}
 			setUpSuccessFully = true;
+			System.out.println("The versions setup was successfully realised.");
 			Compiler compiler = new Compiler(versions, log);
 			Runner runner = new Runner(versions, log);
 			Differ differ = new Differ(versions, testevolConfigRoot, log);
@@ -81,10 +85,15 @@ public class DataAnalysis {
 			ReportGenerator reportGenerator = new ReportGenerator(versions,
 					classifier, project.getName(), executionFolder, log, skipCoverageAnalysis);
 
+			System.out.println("Launch the compiler.");
 			compiler.go();
+      System.out.println("Launch the runner.");
 			runner.go();
+      System.out.println("Launch the differ.");
 			differ.go();
+      System.out.println("Launch the classifier.");
 			classifier.go();
+      System.out.println("Launch the report generator.");
 			reportGenerator.go();
 
 		}finally {
