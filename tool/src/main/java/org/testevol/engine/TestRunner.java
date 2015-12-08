@@ -20,11 +20,11 @@ import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import junit.framework.AssertionFailedError;
-
 import org.testevol.engine.TestResult.TestOutcome;
 import org.testevol.engine.util.TrexClassLoader;
 import org.testevol.engine.util.Utils;
+
+import junit.framework.AssertionFailedError;
 
 public class TestRunner {
 	
@@ -112,7 +112,11 @@ public class TestRunner {
 			// TODO: Check that it can only be a compilation error
 			results = logError(className, e, klass, results);
 			return results;
-		} catch (Throwable e) {
+		} catch (NullPointerException e) {
+      System.out.println("[EXCEPTION] The class \"" + className + "\" could not be loaded.");
+      results = logError(className, e, klass, results);
+      return results;
+    } catch (Throwable e) {
 			 e.printStackTrace();
 			// TODO: Check that it can only be a compilation error
 			results = logError(className, e, klass, results);
