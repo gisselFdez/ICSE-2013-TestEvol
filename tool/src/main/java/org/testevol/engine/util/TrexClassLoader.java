@@ -21,6 +21,7 @@ import java.util.jar.JarFile;
 import org.testevol.engine.TestRunner;
 
 public class TrexClassLoader extends URLClassLoader {
+	private static int times =0;
 	
 	private HashMap<String, Class<?>> loadedClasses;
 	
@@ -33,22 +34,28 @@ public class TrexClassLoader extends URLClassLoader {
 		addURL( url );
 	}
 
-	public Class<?> findOrLoadClass( String className ) throws ClassNotFoundException {	
+	public Class<?> findOrLoadClass( String className ) {	
+		try{
+			ClassLoader cl = ClassLoader.getSystemClassLoader();
+			URL[] urls = ((URLClassLoader) cl).getURLs();
+			/*for (URL url: urls) {
+			    System.out.println("loaderClass: "+url.getFile());
+			}*/
 			
-		ClassLoader cl = ClassLoader.getSystemClassLoader();
-		URL[] urls = ((URLClassLoader) cl).getURLs();
-		for (URL url: urls) {
-		    System.out.println("loaderClass: "+url.getFile());
+			if(className.contains("$")){
+				className = className.substring(0,className.lastIndexOf("$"));
+			}
+			Class<?> cls = loadedClasses.get( className); //classNAme
+			if ( cls == null ) {
+				String dots = className.replace("\\", ".");
+				cls = cl.loadClass( dots);//className
+				loadedClasses.put( className, cls );
+			}
+			return cls;
 		}
-		String[] c = className.split("\\\\");
-		System.out.println("class: "+c[c.length-1]);
-		Class<?> cls = loadedClasses.get( className); //classNAme
-		if ( cls == null ) {
-			//ClassLoader classLoader = getClass().getClassLoader();
-			cls = cl.loadClass( c[c.length-1] +".class");
-			loadedClasses.put( className, cls );
-		}
-		return cls;
+		catch(ClassNotFoundException e){
+			return null;
+		}		
 	}
 
 	

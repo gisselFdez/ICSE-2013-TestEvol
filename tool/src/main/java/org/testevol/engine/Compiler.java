@@ -104,8 +104,8 @@ public class Compiler extends Task {
                 //String sourceDir = version.getSourceDir().toString();
                 //className= sourceDir+"\\"+className;
                 
-                ClassPathModifier.addFile(fentry.toString().substring(0, fentry.toString().lastIndexOf("\\")));
-                ClassPathModifier.addFile(fentry);
+                //ClassPathModifier.addFile(fentry.toString().substring(0, fentry.toString().lastIndexOf("\\")));
+                //ClassPathModifier.addFile(fentry);
                 if (tcl.isTestClass(className)) {
                     target = testsjar;
                     targetdir = version.getBinTestDir();
@@ -218,15 +218,16 @@ public class Compiler extends Task {
         
         HashSet<File> filesList = Utils.getMatchingFilesRecursively(srcDir, ".*java$");
         for (File file : filesList) {
+        	//System.out.println("test cls: "+ file.toString());
             args.add(file.getAbsolutePath());
-            //ClassPathModifier.addFile(file.getAbsolutePath());
+            ClassPathModifier.addFile(file.getAbsolutePath());
         }
         Process process = new ProcessBuilder(args).start();        
         process.waitFor();
         
         String line;   
-        System.out.println(System.getProperty("java.class.path"));
-        classpath = classpath+";"+version.getSourceDir().toString()+"/*";
+        //System.out.println(System.getProperty("java.class.path"));
+        //classpath = classpath+";"+version.getSourceDir().toString()+"/*";
         String[] c = classpath.split(";");
 		for(String s :c){
 			try {
