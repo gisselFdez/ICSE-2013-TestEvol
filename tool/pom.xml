@@ -24,7 +24,7 @@
 	<properties>
 		<spring.version>3.1.2.RELEASE</spring.version>
 	</properties>
-	<dependencies>
+	<dependencies>	
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>

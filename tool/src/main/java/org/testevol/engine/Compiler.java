@@ -19,6 +19,7 @@ import java.util.jar.Manifest;
 import org.apache.commons.io.FileUtils;
 import org.testevol.domain.Version;
 import org.testevol.engine.domain.TestEvolLog;
+import org.testevol.engine.util.ClassPathModifier;
 import org.testevol.engine.util.TrexClassLoader;
 import org.testevol.engine.util.Utils;
 
@@ -76,7 +77,6 @@ public class Compiler extends Task {
 
             String binTestTmpDirCanonicalPath = binTestTmpDir.getCanonicalPath();
             int binTestTmpDirCanonicalPathLength = binTestTmpDirCanonicalPath.length();
-
             
             String classpath = version.getClassPath();
             HashSet<URL> cpurls = Utils.getClassPathFromString(classpath);
@@ -99,6 +99,13 @@ public class Compiler extends Task {
                 String relativePath = absolutePath.substring(binTmpDirCanonicalPathLength + 1);
                 
                 String className = getClassName(relativePath);
+                //String dir= binTmpDirCanonicalPath.replace("bintmp", "bin");
+                //className = dir+"\\"+className;
+                //String sourceDir = version.getSourceDir().toString();
+                //className= sourceDir+"\\"+className;
+                
+                ClassPathModifier.addFile(fentry.toString().substring(0, fentry.toString().lastIndexOf("\\")));
+                ClassPathModifier.addFile(fentry);
                 if (tcl.isTestClass(className)) {
                     target = testsjar;
                     targetdir = version.getBinTestDir();
@@ -120,8 +127,9 @@ public class Compiler extends Task {
 
                     String absolutePath = fentry.getCanonicalPath();
                     //Cut from the entry path the the part related to the bin tmp dir
-                    String relativePath = absolutePath.substring(binTestTmpDirCanonicalPathLength + 1);                    
+                    String relativePath = absolutePath.substring(binTestTmpDirCanonicalPathLength + 1);              
 
+                   
                     String className = getClassName(relativePath);
                     if (tcl.isTestClass(className)) {
                         for (String testcase : tcl.getAllTestcases(className)) {
@@ -185,8 +193,6 @@ public class Compiler extends Task {
     
     private void compile(Version version, File srcDir, File destination, String classpath) throws IOException, InterruptedException{
     	
-
-
         List<String> args = new ArrayList<String>();
         args.add("javac");
         
@@ -196,31 +202,41 @@ public class Compiler extends Task {
         args.add("-nowarn");
         args.add("-d");
         args.add(destination.getAbsolutePath());
-        args.add("-cp");
+        args.add("-classpath"); //-cp
         args.add(classpath);
         
         compileCommand.append(destination.getAbsolutePath());
-        compileCommand.append(" -cp ").append(classpath).append(" ");            
+        compileCommand.append(" -classpath ").append(classpath).append(" ");         //-cp   
                
         String javaVersion = version.getJavaVersion();
         if (!javaVersion.isEmpty()) {
         	args.add("-source");
         	args.add(javaVersion);
         	args.add("-target");
-        	args.add(javaVersion);
-        	
+        	args.add(javaVersion);        	
         }
         
         HashSet<File> filesList = Utils.getMatchingFilesRecursively(srcDir, ".*java$");
         for (File file : filesList) {
             args.add(file.getAbsolutePath());
+            //ClassPathModifier.addFile(file.getAbsolutePath());
         }
-        
-        Process process = new ProcessBuilder(args).start();
+        Process process = new ProcessBuilder(args).start();        
         process.waitFor();
         
-        String line;        
-        
+        String line;   
+        System.out.println(System.getProperty("java.class.path"));
+        classpath = classpath+";"+version.getSourceDir().toString()+"/*";
+        String[] c = classpath.split(";");
+		for(String s :c){
+			try {
+				ClassPathModifier.addFile(s);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
         if(process.exitValue() != 0){
         	log.logError("Error while compiling version "+version.getName());
         	InputStreamReader isr2 = new InputStreamReader(process.getErrorStream());

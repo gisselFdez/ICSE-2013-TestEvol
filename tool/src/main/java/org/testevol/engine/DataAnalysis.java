@@ -90,7 +90,7 @@ public class DataAnalysis {
 		}finally {
 			if(setUpSuccessFully){
 				for (Version version : versions) {
-					FileUtils.deleteDirectory(version.getDirectory());
+					//FileUtils.deleteDirectory(version.getDirectory());
 				}				
 			}
 			long end = System.currentTimeMillis();

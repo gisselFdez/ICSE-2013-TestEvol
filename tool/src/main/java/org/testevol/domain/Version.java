@@ -273,7 +273,7 @@ public class Version {
 				srcDir = srcDirAux;
 			}
 		}
-		System.out.println(new File(versionDir, srcDir));
+		System.out.println("version : "+new File(versionDir, srcDir));
 		return new File(versionDir, srcDir);
 	}
 

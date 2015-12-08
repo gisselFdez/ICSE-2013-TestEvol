@@ -1,6 +1,7 @@
 package org.testevol.engine.util;
 
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -32,15 +33,26 @@ public class TrexClassLoader extends URLClassLoader {
 		addURL( url );
 	}
 
-	public Class<?> findOrLoadClass( String className ) throws ClassNotFoundException {
-		Class<?> cls = loadedClasses.get( className );
+	public Class<?> findOrLoadClass( String className ) throws ClassNotFoundException {	
+			
+		ClassLoader cl = ClassLoader.getSystemClassLoader();
+		URL[] urls = ((URLClassLoader) cl).getURLs();
+		for (URL url: urls) {
+		    System.out.println("loaderClass: "+url.getFile());
+		}
+		String[] c = className.split("\\\\");
+		System.out.println("class: "+c[c.length-1]);
+		Class<?> cls = loadedClasses.get( className); //classNAme
 		if ( cls == null ) {
-			cls = loadClass( className );
+			//ClassLoader classLoader = getClass().getClassLoader();
+			cls = cl.loadClass( c[c.length-1] +".class");
 			loadedClasses.put( className, cls );
 		}
 		return cls;
 	}
 
+	
+	
 	/**
 	 * Helps to retrive all the class names
 	 * @param url
