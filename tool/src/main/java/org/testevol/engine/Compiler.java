@@ -92,6 +92,12 @@ public class Compiler extends Task {
                 tcl.addJar(testResourcesDir.toURI().toURL());
             }
 
+            //modify classpath
+            ClassPathModifier.addFile(binTmpDir);
+            ClassPathModifier.addFile(binTestTmpDir);
+            ClassPathModifier.addFile(srcResourcesDir);
+            ClassPathModifier.addFile(testResourcesDir);
+            
             for (File fentry : Utils.getMatchingFilesRecursively(binTmpDir, ".*class$")) {
                 assert fentry.isFile();                
                 String absolutePath = fentry.getCanonicalPath();
@@ -220,7 +226,7 @@ public class Compiler extends Task {
         for (File file : filesList) {
         	//System.out.println("test cls: "+ file.toString());
             args.add(file.getAbsolutePath());
-            ClassPathModifier.addFile(file.getAbsolutePath());
+            //ClassPathModifier.addFile(file.getAbsolutePath());
         }
         Process process = new ProcessBuilder(args).start();        
         process.waitFor();
@@ -258,7 +264,7 @@ public class Compiler extends Task {
     }
     
     private String getClassName(String relativePath) throws IOException{
-        String className = relativePath.substring(0, relativePath.lastIndexOf('.')).replace('/', '.');        
+        String className = relativePath.substring(0, relativePath.lastIndexOf('.')).replace('/', '.').replace('\\', '.');        
         return className;
     }
     

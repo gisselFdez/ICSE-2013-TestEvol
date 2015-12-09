@@ -20,6 +20,7 @@ import org.testevol.engine.TestRunner;
 
 public class TrexClassLoader extends URLClassLoader {
   private static int times = 0;
+  private static int loaded = 0;
 
   private HashMap<String, Class<?>> loadedClasses;
 
@@ -36,10 +37,11 @@ public class TrexClassLoader extends URLClassLoader {
     try {
       ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
+      
       // Skip the loading of classes containing anonymous class
-      if (className.contains("$")) {
+      /*if (className.contains("$")) {
         className = className.substring(0, className.lastIndexOf("$"));
-      }
+      }*/
 
       String classNameWithDots = className.replace("\\", ".");
       Class<?> cls = loadedClasses.get(classNameWithDots);
@@ -47,9 +49,15 @@ public class TrexClassLoader extends URLClassLoader {
       if (cls == null) {
         cls = classLoader.loadClass(classNameWithDots);
         loadedClasses.put(classNameWithDots, cls);
+        
+        if(classNameWithDots.contains("Test")){
+	        loaded = loaded+1;
+//	        System.out.println("LOADED "+loaded+" | "+className);
+        }
       }
       return cls;
     } catch (ClassNotFoundException e) {
+    	times = times+1;
       return null;
     }
   }
