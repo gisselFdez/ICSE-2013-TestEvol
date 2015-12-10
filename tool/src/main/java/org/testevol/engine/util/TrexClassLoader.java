@@ -48,13 +48,17 @@ public class TrexClassLoader extends URLClassLoader {
     	cls = this.loadClass(className);
         loadedClasses.put(className, cls);
         
-        /*if(classNameWithDots.contains("Test")){
+        if(className.contains("Test")){
 	        loaded = loaded+1;
 	        System.out.println("LOADED "+loaded+" | "+className);
-        }*/
+        }
       }
       return cls;
-    } catch (ClassNotFoundException e) {
+    } catch (ClassNotFoundException  ex) {
+    	//times = times+1;
+      return null;
+    }
+    catch (IllegalAccessError ex) {
     	//times = times+1;
       return null;
     }

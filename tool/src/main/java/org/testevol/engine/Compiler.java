@@ -44,7 +44,6 @@ public class Compiler extends Task {
     public boolean go() throws Exception {
     	log.logStrong("Starting Compiler...");
     	for (Version version : versions) {   	       	
-        	System.out.println("version "+version.toString());
         	
         	if (!version.getSourceDir().exists()) {
         		log.logError("Source directory \""+version.getSourceDir()+"\" not found for version " + version.getName());
@@ -95,10 +94,10 @@ public class Compiler extends Task {
             }
 
             //modify classpath
-            ClassPathModifier.addFile(binTmpDir);
+            /*ClassPathModifier.addFile(binTmpDir);
             ClassPathModifier.addFile(binTestTmpDir);
             ClassPathModifier.addFile(srcResourcesDir);
-            ClassPathModifier.addFile(testResourcesDir);
+            ClassPathModifier.addFile(testResourcesDir);*/
             
             //Print classpath
             /*System.out.println("CLASSPATH version:"+version.toString());
