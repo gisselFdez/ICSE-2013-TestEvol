@@ -19,6 +19,9 @@ import org.testevol.engine.domain.coverage.CoverageUtil;
 import org.testevol.engine.driver.TestCoverageDriver;
 import org.testevol.engine.util.Utils;
 
+/*
+ * Cette catégorie de tests comprend les tests supprimés qui passent
+ */
 public class CategoryC5 extends Category {
 
 	public Map<String, Boolean> coverageHasDecreased;

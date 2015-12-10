@@ -9,6 +9,9 @@ import java.util.Set;
 
 import org.testevol.domain.Version;
 
+/*
+ * Cette catégorie de tests comprend les tests ajoutés qui sont en CompilationError
+ */
 public class CategoryC7 extends Category {
 
 	public CategoryC7(Version oldVersion, Version version) {

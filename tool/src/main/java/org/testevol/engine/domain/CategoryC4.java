@@ -11,6 +11,10 @@ import org.testevol.domain.Version;
 
 public class CategoryC4 extends Category {
 
+  /*
+   * Cette catégorie de tests comprend les tests supprimés qui :
+   * - ont une CompilationError
+   */
 	public CategoryC4(Version oldVersion, Version version) {
 		super(CategoryClassification.TESTDEL_CE, oldVersion, version);
 	}
