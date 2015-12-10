@@ -11,6 +11,13 @@ import java.util.Set;
 import org.testevol.domain.Version;
 import org.testevol.engine.TestResult.TestOutcome;
 
+/*
+ * Catégorie de tests qui comprend les tests en erreur :
+ * - CompilationError
+ * - AssertionError
+ * - RuntimeException
+ * et les tests qui passent dans le nouveau programme
+ */
 public class CategoryC1 extends Category{
 	
 	private Set<String> assertionFailures;

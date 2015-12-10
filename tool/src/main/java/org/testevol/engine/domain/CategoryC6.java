@@ -8,6 +8,11 @@ import java.io.IOException;
 
 import org.testevol.domain.Version;
 
+/*
+ * Cette catégorie de tests comprend les tests ajoutés qui sont :
+ * - en AssertionError
+ * - en RuntimeException
+ */
 public class CategoryC6 extends Category {
 
 	public CategoryC6(Version oldVersion, Version version) {

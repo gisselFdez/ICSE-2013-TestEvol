@@ -18,6 +18,9 @@ import org.testevol.engine.domain.coverage.Coverage;
 import org.testevol.engine.domain.coverage.CoverageUtil;
 import org.testevol.engine.driver.TestCoverageDriver;
 
+/*
+ * Cette catégorie de tests comprend les tests ajoutés qui passent sur l'ancienne version du programme
+ */
 public class CategoryC8 extends Category {
 
 	public Map<String, Boolean> coverageHasImproved;

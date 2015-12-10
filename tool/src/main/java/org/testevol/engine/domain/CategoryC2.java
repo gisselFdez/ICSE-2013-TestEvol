@@ -10,6 +10,9 @@ import java.util.Set;
 
 import org.testevol.domain.Version;
 
+/*
+ * Cette catégorie de tests comprend les anciens tests qui passent sur le nouveau programme
+ */
 public class CategoryC2 extends Category {
 
 	public CategoryC2(Version oldVersion, Version version) {

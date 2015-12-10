@@ -8,6 +8,11 @@ import java.io.IOException;
 
 import org.testevol.domain.Version;
 
+/*
+ * Cette catégorie de tests comprend les tests supprimés qui sont :
+ * - en AssertionError
+ * - en RunException
+ */
 public class CategoryC3 extends Category {
 
 	public CategoryC3(Version oldVersion, Version version) {
