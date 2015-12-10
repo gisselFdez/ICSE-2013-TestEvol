@@ -118,7 +118,7 @@ public class Runner extends Task {
                         String relativePath = absolutePath.substring(index);
                         String testClassName = relativePath.substring(0,
                                 relativePath.lastIndexOf('.'))
-                                .replace('/', '.');
+                                .replace('/', '.').replace('\\', '.');
                         classList.add(testClassName);
                 	}
                     

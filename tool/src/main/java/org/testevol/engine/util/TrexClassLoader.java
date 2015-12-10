@@ -81,7 +81,7 @@ public class TrexClassLoader extends URLClassLoader {
         JarEntry entry = entries.nextElement();
         String entryName = entry.getName();
         if (entryName.endsWith(".class")) {
-          String className = entryName.substring(0, entryName.length() - 6).replace('/', '.');
+          String className = entryName.substring(0, entryName.length() - 6).replace('/', '.').replace('\\', '.');
           classNamesSet.add(className);
         }
       }
