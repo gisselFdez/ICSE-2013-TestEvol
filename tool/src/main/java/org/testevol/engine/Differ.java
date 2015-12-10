@@ -47,6 +47,7 @@ public class Differ extends Task {
             String[] configFilesCode = new String[2];
             String[] configFilesTests = new String[2];
 
+            //genere un fichier de configuration wala pour chaque version
             configFilesCode[0] = generateWalaConfig(oldVersion, "wala-code.config", "code.jar");
             configFilesCode[1] = generateWalaConfig(version, "wala-code.config", "code.jar");
             
@@ -66,16 +67,10 @@ public class Differ extends Task {
             
 //            Classifier classifier = new Classifier(oldVersion, version, javaDiffTests);
 //            
-//            
-//
 //            Results results = classifier.classify();
 //            searchClones(oldVersion, version, results);
 //            
-//            
-//            resultsForEachPair.add(results);
-            
-
-            
+//            resultsForEachPair.add(results);      
             oldVersion = version;
         }
         return true;

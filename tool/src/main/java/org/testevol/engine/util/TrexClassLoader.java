@@ -30,34 +30,32 @@ public class TrexClassLoader extends URLClassLoader {
   }
 
   public void addJar(URL url) throws MalformedURLException {
-    addURL(url);
+    this.addURL(url);
   }
 
   public Class<?> findOrLoadClass(String className) {
     try {
-      ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-
-      
-      // Skip the loading of classes containing anonymous class
-      /*if (className.contains("$")) {
-        className = className.substring(0, className.lastIndexOf("$"));
+      //ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+      /*for(URL u : this.getURLs()){
+    	  System.out.println(u.getFile());
       }*/
 
-      String classNameWithDots = className.replace("\\", ".");
-      Class<?> cls = loadedClasses.get(classNameWithDots);
+      //String classNameWithDots = className.replace("\\", ".");
+      Class<?> cls = loadedClasses.get(className);
 
       if (cls == null) {
-        cls = classLoader.loadClass(classNameWithDots);
-        loadedClasses.put(classNameWithDots, cls);
+        //cls = classLoader.loadClass(classNameWithDots);
+    	cls = this.loadClass(className);
+        loadedClasses.put(className, cls);
         
-        if(classNameWithDots.contains("Test")){
+        /*if(classNameWithDots.contains("Test")){
 	        loaded = loaded+1;
-//	        System.out.println("LOADED "+loaded+" | "+className);
-        }
+	        System.out.println("LOADED "+loaded+" | "+className);
+        }*/
       }
       return cls;
     } catch (ClassNotFoundException e) {
-    	times = times+1;
+    	//times = times+1;
       return null;
     }
   }
@@ -72,7 +70,7 @@ public class TrexClassLoader extends URLClassLoader {
 
     try {
       // load URL
-      addURL(url);
+      this.addURL(url);
       JarURLConnection conn = (JarURLConnection) url.openConnection();
       JarFile jarFile = conn.getJarFile();
 
@@ -106,7 +104,7 @@ public class TrexClassLoader extends URLClassLoader {
       }
       return testMethods;
     } catch (NullPointerException e) {
-      System.out.println("[EXCEPTION] The class \"" + className + "\" could not be loaded.");
+      //System.out.println("[EXCEPTION] The class \"" + className + "\" could not be loaded.");
       return new ArrayList<String>();
     }
   }
@@ -149,7 +147,7 @@ public class TrexClassLoader extends URLClassLoader {
       }
       return false;
     } catch (NullPointerException e) {
-      System.out.println("[EXCEPTION] The class \"" + className + "\" could not be loaded.");
+      //System.out.println("[EXCEPTION] The class \"" + className + "\" could not be loaded.");
       return false;
     }
   }
@@ -164,7 +162,7 @@ public class TrexClassLoader extends URLClassLoader {
       int testCount = (Integer) o.getClass().getMethod("testCount").invoke(o);
       return testCount > 0;
     } catch (NullPointerException e) {
-      System.out.println("[EXCEPTION] The class \"" + className + "\" could not be loaded.");
+      //System.out.println("[EXCEPTION] The class \"" + className + "\" could not be loaded.");
       return false;
     } catch (Exception e) {
       // e.printStackTrace();

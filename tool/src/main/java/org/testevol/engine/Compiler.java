@@ -22,6 +22,7 @@ import org.testevol.engine.domain.TestEvolLog;
 import org.testevol.engine.util.ClassPathModifier;
 import org.testevol.engine.util.TrexClassLoader;
 import org.testevol.engine.util.Utils;
+import java.net.URLClassLoader;
 
 import com.sun.org.apache.xalan.internal.xsltc.compiler.CompilerException;
 
@@ -42,7 +43,8 @@ public class Compiler extends Task {
     @Override
     public boolean go() throws Exception {
     	log.logStrong("Starting Compiler...");
-    	for (Version version : versions) {
+    	for (Version version : versions) {   	       	
+        	System.out.println("version "+version.toString());
         	
         	if (!version.getSourceDir().exists()) {
         		log.logError("Source directory \""+version.getSourceDir()+"\" not found for version " + version.getName());
@@ -97,6 +99,14 @@ public class Compiler extends Task {
             ClassPathModifier.addFile(binTestTmpDir);
             ClassPathModifier.addFile(srcResourcesDir);
             ClassPathModifier.addFile(testResourcesDir);
+            
+            //Print classpath
+            /*System.out.println("CLASSPATH version:"+version.toString());
+        	ClassLoader cl = ClassLoader.getSystemClassLoader();
+        	URL[] urls = ((URLClassLoader) cl).getURLs();
+        	for (URL url: urls) {
+        	    System.out.println(url.getFile());
+        	}*/
             
             for (File fentry : Utils.getMatchingFilesRecursively(binTmpDir, ".*class$")) {
                 assert fentry.isFile();                

@@ -113,7 +113,7 @@ public class TestRunner {
 			results = logError(className, e, klass, results);
 			return results;
 		} catch (NullPointerException e) {
-      System.out.println("[EXCEPTION] The class \"" + className + "\" could not be loaded.");
+      //System.out.println("[EXCEPTION] The class \"" + className + "\" could not be loaded.");
       results = logError(className, e, klass, results);
       return results;
     } catch (Throwable e) {
